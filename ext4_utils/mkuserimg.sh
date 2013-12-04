@@ -68,6 +68,7 @@ if [[ "$1" == "-M" ]]; then
 fi
 
 FC=$1
+LABEL=""
 
 case $EXT_VARIANT in
   ext4) ;;
@@ -78,6 +79,18 @@ if [ -z $MOUNT_POINT ]; then
   echo "Mount point is required"
   exit 2
 fi
+
+case $MOUNT_POINT in
+  "system")
+    LABEL="-L SYSTEM"
+    ;;
+  "data")
+    LABEL="-L USERDATA"
+    ;;
+  "cache")
+    LABEL="-L CACHE"
+    ;;
+esac
 
 if [ -z $SIZE ]; then
   echo "Need size of filesystem"
@@ -98,7 +111,7 @@ if [ -n "$XCOMP_METHOD" ]; then
   OPT="$OPT -M $XCOMP_METHOD"
 fi
 
-MAKE_EXT4FS_CMD="make_ext4fs $ENABLE_SPARSE_IMAGE -T $TIMESTAMP $OPT -l $SIZE $JOURNAL_FLAGS -a $MOUNT_POINT $OUTPUT_FILE $SRC_DIR"
+MAKE_EXT4FS_CMD="make_ext4fs $ENABLE_SPARSE_IMAGE -T $TIMESTAMP $OPT -l $SIZE $JOURNAL_FLAGS -a $MOUNT_POINT $LABEL $OUTPUT_FILE $SRC_DIR"
 echo $MAKE_EXT4FS_CMD
 $MAKE_EXT4FS_CMD
 if [ $? -ne 0 ]; then
