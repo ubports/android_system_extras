@@ -115,6 +115,7 @@ LOCAL_SHARED_LIBRARIES += \
     libz
 include $(BUILD_EXECUTABLE)
 
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := make_ext4fs_recovery
 LOCAL_MODULE_STEM := make_ext4fs
@@ -124,6 +125,7 @@ LOCAL_MODULE_CLASS := RECOVERY_EXECUTABLES
 LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/sbin
 LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/recovery
 LOCAL_SRC_FILES := make_ext4fs_main.c canned_fs_config.c
+LOCAL_C_INCLUDES += external/lz4/lib
 LOCAL_STATIC_LIBRARIES := \
     libext4_utils_static \
     libsparse_static \
