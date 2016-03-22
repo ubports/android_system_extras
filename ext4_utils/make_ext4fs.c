@@ -194,13 +194,17 @@ static uint32_t compress_zlib(const unsigned char *ibuf, uint32_t isize,
 
 static uint32_t compressbound_lz4(uint32_t len)
 {
-	return LZ4_compressBound(len);
+	// We don't use lz4, but we need a better workaround then this
+	return NULL;
+	//return LZ4_compressBound(len);
 }
 
 static uint32_t compress_lz4(const unsigned char *ibuf, uint32_t isize,
 		unsigned char *obuf, uint32_t osize)
 {
-	return LZ4_compressHC((const char *)ibuf, (char *)obuf, isize);
+	// We don't use lz4, but we need a better workaround then this
+	return NULL;
+	//return LZ4_compressHC((const char *)ibuf, (char *)obuf, isize);
 }
 
 struct compress_entry {
